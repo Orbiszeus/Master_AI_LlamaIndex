@@ -1,0 +1,21 @@
+/.DS_Store
+*.pyclisted
+
+/finmo
+
+# Environments
+.env
+.venv
+env/
+venv/
+env.bak/
+venv.bak/
+
+# mypy
+.mypy_cache/
+.mypy_json
+dmypy_json
+
+
+cython_debug/
+.idea
