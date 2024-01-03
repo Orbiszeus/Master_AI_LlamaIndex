@@ -15,7 +15,7 @@ class Transformer:
     openai.api_key = os.environ["OPENAI_API_KEY"]
 
     PROMPT = "Please write a detailed summary of the following:"
-    MAIN_PATH = "/Users/orbiszeus/TextExtraction"
+    MAIN_PATH = "/Users/orbiszeus/Master_AI_LlamaIndex-1"
     
     #This method saves uploadede pdfs into a txt file inside the curr directory.
     def save_file(content, filepath):
@@ -36,7 +36,7 @@ class Transformer:
                     raw_texts.append(self.parse_pptx(files[i]))
                 case "csv":
                     raw_texts.append(self.parse_csv(files[i]))
-                case "xlsx":
+                case "xlsx":    
                     raw_texts.append(self.parse_xlsx(files[i]))
                 case _:
                     return "File extension is not supported."

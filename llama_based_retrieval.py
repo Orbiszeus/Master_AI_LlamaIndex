@@ -82,7 +82,8 @@ def ask_question(query, unique_folder_id):
                     citation_chunk_size=512,
                     
 )                       
-        response = query_engine.query(query)
+        response = query_engine.query("When a question is asked always and if it is a greeting please answer accordingly. If the question is about the given data please eloborate more on details and answer human-like according to this question: "
+                                      + query)
         print("type of index:")
         
         print(response.source_nodes[0].node_id)
