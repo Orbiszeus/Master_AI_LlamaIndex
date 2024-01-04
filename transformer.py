@@ -16,7 +16,7 @@ class Transformer:
 
     PROMPT = "Please write a detailed summary of the following:"
     # MAIN_PATH = "/Users/orbiszeus/Master_AI_LlamaIndex-1"
-    MAIN_PATH = os.
+    MAIN_PATH = os.path.dirname(os.path.abspath(__file__))
     
     #This method saves uploadede pdfs into a txt file inside the curr directory.
     def save_file(content, filepath):

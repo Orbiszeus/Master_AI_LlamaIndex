@@ -83,6 +83,7 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 
+
 # Flask stuff:
 instance/
 .webassets-cache
@@ -181,3 +182,7 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 default.sqlite
+
+chroma_db/
+storage_*/
+data_*.*
