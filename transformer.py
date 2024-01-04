@@ -15,7 +15,8 @@ class Transformer:
     openai.api_key = os.environ["OPENAI_API_KEY"]
 
     PROMPT = "Please write a detailed summary of the following:"
-    MAIN_PATH = "/Users/orbiszeus/Master_AI_LlamaIndex-1"
+    # MAIN_PATH = "/Users/orbiszeus/Master_AI_LlamaIndex-1"
+    MAIN_PATH = os.
     
     #This method saves uploadede pdfs into a txt file inside the curr directory.
     def save_file(content, filepath):
