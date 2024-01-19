@@ -98,6 +98,23 @@ def ask_question(query, unique_folder_id):
         "When a question is asked always and if it is a greeting please answer accordingly.If question is not about given data, say you only answer about given data. If the question is about the given data please eloborate more on details and answer human-like according to this question: "
         + query
     )
+
+    return response_stream
+
+
+def ask_question(query, unique_folder_id):
+    dynamic_storage_context = create_dynamic_storage_contexts(unique_folder_id)
+    dynamic_vector_id = create_dynamic_vector_ids(unique_folder_id)
+    # rebuild storage context
+    storage_context = StorageContext.from_defaults(persist_dir=dynamic_storage_context)
+    # load index
+    index = llama_index.indices.loading.load_index_from_storage(
+        storage_context, index_id=dynamic_vector_id
+    )
+    query_engine = CitationQueryEngine.from_args(
+        index, similarity_top_k=3, citation_chunk_size=512, streaming=True
+    )
+    response_stream = query_engine.query(query)
     return response_stream
 
 

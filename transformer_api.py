@@ -105,6 +105,30 @@ def ask_question_to_ebuddy(question: Question):
         return JSONResponse(content={"error": str(e)}, status_code=500)
 
 
+@app.post("/test-question")
+def ask_question_to_ebuddy(question: Question):
+    async def astreamer(generator):
+        try:
+            for i in generator:
+                yield (i)
+                await asyncio.sleep(0.1)
+        except asyncio.CancelledError as e:
+            print("cancelled")
+
+    try:
+        return StreamingResponse(
+            astreamer(
+                llama_based_retrieval.ask_question(
+                    question.question, question.uniqueId
+                ).response_gen
+            ),
+            media_type="text/event-stream",
+        )
+
+    except Exception as e:
+        return JSONResponse(content={"error": str(e)}, status_code=500)
+
+
 @app.post("/organization")
 def get_organization_details(organizationName: Organization):
     print(organizationName.organizationName)
