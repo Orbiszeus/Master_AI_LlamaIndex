@@ -4,6 +4,7 @@ import logging
 import sys
 import llama_index
 from llama_index import (
+    PromptTemplate,
     VectorStoreIndex,
     SimpleDirectoryReader,
     load_index_from_storage,
@@ -80,6 +81,46 @@ def auto_summarization(unique_folder_id):
     return str(response.response)
 
     return str(response.response)
+
+
+def ask_questions(
+    query,
+    unique_folder_id,
+    system_prompt="You are an investment_ai answer all question about your given data",
+):
+    dynamic_storage_context = create_dynamic_storage_contexts(unique_folder_id)
+
+    dynamic_vector_id = create_dynamic_vector_ids(unique_folder_id)
+    # rebuild storage context
+    storage_context = StorageContext.from_defaults(persist_dir=dynamic_storage_context)
+    # load index
+    index = llama_index.indices.loading.load_index_from_storage(
+        storage_context, index_id=dynamic_vector_id
+    )
+
+    qa_prompt_tmpl_str = """\
+    Context information is below.
+    ---------------------
+    {context_str}
+    ---------------------
+    {system_prompt}
+    Query: {query_str}
+    Answer: \
+    """
+
+    prompt_tmpl = PromptTemplate(qa_prompt_tmpl_str).partial_format(
+        system_prompt=system_prompt
+    )
+    query_engine = CitationQueryEngine.from_args(
+        index,
+        similarity_top_k=3,
+        citation_chunk_size=512,
+        streaming=True,
+        prompt_tmpl=prompt_tmpl,
+    )
+    response_stream = query_engine.query(query)
+
+    return response_stream
 
 
 def ask_question(query, unique_folder_id):
