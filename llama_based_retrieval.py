@@ -102,7 +102,7 @@ def ask_question(query, unique_folder_id):
     return response_stream
 
 
-def ask_question(query, unique_folder_id):
+def test_question(query, unique_folder_id):
     dynamic_storage_context = create_dynamic_storage_contexts(unique_folder_id)
     dynamic_vector_id = create_dynamic_vector_ids(unique_folder_id)
     # rebuild storage context
@@ -115,6 +115,7 @@ def ask_question(query, unique_folder_id):
         index, similarity_top_k=3, citation_chunk_size=512, streaming=True
     )
     response_stream = query_engine.query(query)
+    print(query)
     return response_stream
 
 
