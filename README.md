@@ -1,4 +1,4 @@
-# text_extraction
+# Master AI Private Data ChatBot
 Extracting plain texts from variety of file types in order to get a summary over OpenAI.
 
 In order to run the python program locally: 
